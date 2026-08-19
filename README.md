@@ -11,6 +11,10 @@ The framework is intentionally designed so that the **strategy-specific trading
 logic can be changed without rebuilding the surrounding backtesting,
 performance-analysis, and visualization framework**.
 
+
+## 🚀 Live Dashboard
+
+[View the Interactive Dashboard](https://quantitative-fx-strategy-research.onrender.com/)
 ---
 
 ## Overview
