@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Jupyter
+.ipynb_checkpoints/
+
+# VS Code
+.vscode/
+
+# Virtual environments
+venv/
+.venv/
+
+# Environment / secrets
+.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Large tick datasets
+assets/EURUSD_ticks_1y.csv
+assets/EURUSD_ticks_1y_FIXED.csv

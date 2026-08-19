@@ -1,0 +1,17 @@
+dash
+dash-bootstrap-components
+pandas
+numpy
+plotly
+jupyter
+matplotlib
+
+Why these packages?
+Package	Used for
+dash	Interactive dashboard
+dash-bootstrap-components	Dashboard layout/components
+pandas	Data processing
+numpy	Numerical calculations
+plotly	Interactive charts
+jupyter	Your research notebook
+matplotlib	Notebook analysis/visualization

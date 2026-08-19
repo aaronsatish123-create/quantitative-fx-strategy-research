@@ -1,0 +1,385 @@
+# Quantitative FX Strategy Research Framework
+
+A reusable quantitative trading research and backtesting framework with an
+interactive Dash analytics dashboard.
+
+The current implementation evaluates an **Asian Session Breakout strategy on
+EUR/USD**, but the framework is designed so that the strategy-specific logic
+can be adjusted or replaced while keeping the core backtesting, performance
+analysis, and dashboard components reusable.
+
+---
+
+## Project Overview
+
+The objective of this project is to build a reusable environment for
+researching, backtesting, and comparing systematic trading strategies.
+
+Rather than building a dashboard for only one strategy, the project separates
+the strategy-specific trading logic from the broader research and analytics
+workflow.
+
+The current strategy is an **Asian Session Breakout strategy** applied to
+EUR/USD.
+
+The framework can be adapted to other systematic strategies by changing the
+strategy-specific rules while reusing the surrounding data, backtesting,
+performance analysis, and visualization components.
+
+---
+
+# Framework Architecture
+
+The project follows a modular research workflow:
+
+```text
+Market Data
+     ↓
+Data Processing
+     ↓
+Strategy Logic
+     ↓
+Trade Generation
+     ↓
+Backtesting
+     ↓
+Portfolio / Equity Calculation
+     ↓
+Performance Analytics
+     ↓
+Interactive Dashboard
+
+Adjustable Strategy Component
+
+The most important adjustable part of the framework is the strategy
+logic.
+
+The current implementation uses an:
+
+Asian Session Breakout Strategy
+
+The strategy-specific component determines things such as:
+
+How the trading session is defined
+How the Asian session range is calculated
+What constitutes a breakout
+When a BUY signal is generated
+When a SELL signal is generated
+Where the stop-loss is placed
+Where the take-profit is placed
+Risk/reward parameters
+Trade timing restrictions
+Position direction rules
+Conditions for entering or rejecting a trade
+Conceptually
+                ┌─────────────────────────┐
+                │     STRATEGY LOGIC      │
+                │                         │
+                │ Asian Session Breakout  │
+                │          ↓              │
+                │   BUY / SELL signals    │
+                │          ↓              │
+                │   Entry / SL / TP rules │
+                └────────────┬────────────┘
+                             ↓
+                    Backtesting Engine
+                             ↓
+                    Performance Analytics
+                             ↓
+                     Dash Dashboard
+
+The Strategy Logic section is the part intended to be changed when testing
+a different strategy.
+
+For example, the same framework could eventually be used for:
+
+Asian Session Breakout
+          ↓
+Moving Average Crossover
+          ↓
+London Session Breakout
+          ↓
+Momentum Strategy
+          ↓
+Mean Reversion Strategy
+          ↓
+Machine Learning Signal Strategy
+
+The goal is to avoid rebuilding the entire analytics and visualization system
+for every new strategy.
+
+Current Strategy
+Asian Session Breakout
+
+The current implementation uses an Asian Session Breakout approach on EUR/USD.
+
+The strategy identifies the relevant Asian trading range and evaluates
+subsequent price movement for breakout opportunities.
+
+Trades are classified into two directions:
+
+LONG / BUY
+SHORT / SELL
+
+The resulting trades are then evaluated based on profitability, drawdown,
+holding time, win rate, and overall portfolio performance.
+
+Research Questions
+
+The framework is designed to answer questions such as:
+
+Does the strategy generate positive returns?
+How consistent are returns across different periods?
+What is the strategy's maximum drawdown?
+How many trades are profitable?
+How large are the average winning and losing trades?
+Does the LONG direction outperform the SHORT direction?
+Which direction contributes most to losses?
+How long are positions typically held?
+How does performance change over time?
+Is the strategy robust enough to justify further research?
+Interactive Dashboard
+
+The project includes an interactive dashboard built using:
+
+Python
+Plotly
+Dash
+Dash Bootstrap Components
+Pandas
+
+The dashboard provides a visual interface for analyzing the results produced
+by the backtesting process.
+
+Dashboard Components
+1. Strategy Performance KPIs
+
+The dashboard displays the main strategy performance indicators:
+
+Ending Balance
+Return
+Win Rate
+Profit Factor
+Maximum Drawdown
+Total Trades
+2. Long vs Short Performance
+
+The dashboard separately evaluates LONG and SHORT trades.
+
+For each direction it displays:
+
+Total Trades
+Profitable Trades
+Losing Trades
+Win Rate
+Total P&L
+Total Losses
+Average Winning Trade
+Average Losing Trade
+Best Trade
+Worst Trade
+
+This allows the research process to determine whether the strategy performs
+better when taking long or short positions.
+
+3. Long vs Short Total P&L
+
+A direct comparison of the total P&L generated by:
+
+LONG / BUY trades
+SHORT / SELL trades
+
+This helps identify which direction contributes positively to the strategy and
+which direction may be reducing overall performance.
+
+4. Equity Curve
+
+The equity curve shows how the strategy's equity changes throughout the
+backtest period.
+
+This provides a visual representation of:
+
+Growth
+Volatility
+Periods of losses
+Recovery periods
+Overall strategy progression
+5. P&L by Trade
+
+This chart displays the P&L generated by individual trades.
+
+Profitable and losing trades can be visually compared across the sequence of
+trades.
+
+6. Drawdown
+
+The drawdown chart shows the percentage decline from the previous equity peak.
+
+This helps evaluate the risk and volatility experienced by the strategy.
+
+7. Monthly Ending Balance
+
+The monthly performance view shows how the strategy's ending balance changes
+over time.
+
+This helps identify periods of stronger and weaker performance.
+
+8. Average Holding Time by Direction
+
+The dashboard compares the average holding duration of:
+
+BUY trades
+SELL trades
+
+This provides additional insight into the behavior of each trade direction.
+
+Current Backtest Results
+
+The current implementation produces the following headline results:
+
+Metric	Result
+Ending Balance	₹11,934.70
+Return	19.35%
+Win Rate	36.32%
+Profit Factor	1.13
+Maximum Drawdown	-10.52%
+Total Trades	223
+Long vs Short Results
+
+The current backtest provides the following directional comparison:
+
+Metric	LONG / BUY	SHORT / SELL
+Total Trades	110	113
+Profitable Trades	45	36
+Losing Trades	65	77
+Win Rate	40.91%	31.86%
+Total P&L	2,599.37	-664.57
+Total Losses	-6,999.79	-8,362.67
+Average Winner	213.31	213.84
+Average Loser	-107.69	-108.61
+Best Trade	237.22	236.38
+Worst Trade	-120.98	-120.55
+
+The current results indicate that the LONG side contributed positively to
+overall strategy performance, while the SHORT side reduced overall P&L.
+
+This directional analysis is one of the main research components of the
+dashboard.
+
+#Project Structure
+Trading dashboard/
+│
+├── app/
+│   ├── dashboard.py
+│   ├── layout.py
+│   ├── charts.py
+│   ├── styles.py
+│   └── data.py
+│
+├── assets/
+│   └── EUR/USD market datasets
+│
+├── notebooks/
+│   └── TRADING TEST.ipynb
+│
+├── outputs/
+│   ├── trades.csv
+│   ├── monthly_summary.csv
+│   ├── direction_summary.csv
+│   └── dashboard_kpis.json
+│
+├── calculator.py
+├── requirements.txt
+├── .gitignore
+└── README.md
+Data Layer
+
+The dashboard uses processed backtesting outputs rather than repeatedly
+loading raw market data throughout the application.
+
+The data layer loads:
+
+Trade-level results
+Monthly performance summaries
+Directional performance summaries
+Dashboard KPI values
+
+This allows the dashboard components to use a centralized data layer.
+
+Trade-Level Data
+
+The trade output contains information including:
+
+Trade ID
+Entry time
+Exit time
+Trade type
+Entry price
+Stop loss
+Take profit
+Exit price
+Exit reason
+Result
+P&L
+P&L in pips
+Balance before trade
+Balance after trade
+Risk amount
+R multiple
+Equity
+Equity peak
+Drawdown
+Drawdown percentage
+Holding hours
+Holding days
+Trade month
+
+This trade-level dataset forms the basis of many of the dashboard
+visualizations.
+
+Technologies
+
+The project uses:
+
+Python
+Pandas
+NumPy
+Plotly
+Dash
+Dash Bootstrap Components
+Jupyter Notebook
+Matplotlib
+Git
+GitHub
+
+What Is Actually Adjustable?
+
+The strategy-specific Python logic is the adjustable part of this project.
+
+This is where the trading hypothesis is translated into systematic rules.
+
+The adjustable component can include:
+
+┌─────────────────────────────────────────┐
+│         ADJUSTABLE STRATEGY LOGIC       │
+│                                         │
+│  Entry conditions                       │
+│  Exit conditions                        │
+│  BUY / SELL conditions                  │
+│  Session definitions                    │
+│  Breakout conditions                    │
+│  Stop-loss rules                        │
+│  Take-profit rules                      │
+│  Risk/reward parameters                 │
+│  Position sizing                        │
+│  Trade timing restrictions              │
+│  Signal filters                         │
+└────────────────────┬────────────────────┘
+                     ↓
+              Backtesting Engine
+                     ↓
+              Trade Results
+                     ↓
+          Performance Analytics
+                     ↓
+               Dashboard

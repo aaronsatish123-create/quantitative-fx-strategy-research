@@ -1,0 +1,22 @@
+{
+    "Starting Balance": 10000,
+    "Ending Balance": 11934.7,
+    "Net Profit": 1934.7999999999995,
+    "Return (%)": 19.34700000000001,
+    "Total Trades": 223,
+    "Winning Trades": 81,
+    "Losing Trades": 141,
+    "Win Rate (%)": 36.32286995515695,
+    "Profit Factor": 1.1259433710486475,
+    "Expectancy": 8.6762331838565,
+    "Max Drawdown ($)": -1149.4799999999996,
+    "Max Drawdown (%)": -10.519495494704008,
+    "Average Holding Hours": 95.04504504504504,
+    "Average Win ($)": 213.5464197530865,
+    "Average Loss ($)": -108.18633802816902,
+    "Largest Win ($)": 237.22,
+    "Largest Loss ($)": -120.98,
+    "Average R-Multiple": 0.08968609865470852,
+    "Longest Win Streak": 6,
+    "Longest Loss Streak": 8
+}
